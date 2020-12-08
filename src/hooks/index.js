@@ -17,33 +17,49 @@ export const useTasks = (selectedProject) => {
 
     unsubscribe =
       selectedProject && !collatedTasksExist(selectedProject)
-        ? (unsubscribe = unsubscribe.where("projectId", "==", selectedProject))
-        : selectedProject === "TODAY"
-        ? (unsubscribe = unsubscribe.where(
+        ? //if the selected project does not exist in collated tasks (inbox, today, next 7 days)
+          //then go through the projects and check project ids
+          (unsubscribe = unsubscribe.where("projectId", "==", selectedProject))
+        : //else if selected project is TODAY
+        selectedProject === "TODAY"
+        ? //then get all tasks where date = TODAY
+          (unsubscribe = unsubscribe.where(
             "date",
             "==",
             moment().format("DD/MM/YYYY")
           ))
-        : selectedProject === "INBOX" || selectedProject === 0
-        ? (unsubscribe = unsubscribe.where("date", "==", ""))
-        : unsubscribe;
+        : //else if selected project = INBOX or 0
+        selectedProject === "INBOX" || selectedProject === 0
+        ? //then unsubscribe where date is nothing (TODAY?)
+          (unsubscribe = unsubscribe.where("date", "==", ""))
+        : //else unsubscribe
+          unsubscribe;
 
+    //snapshot = an object with different key values
     unsubscribe = unsubscribe.onSnapshot((snapshot) => {
+      //get docs from firestore and map over these
+      //give each task an id
+      //spread the task data into newTasks
       const newTasks = snapshot.docs.map((task) => ({
         id: task.id,
         ...task.data(),
       }));
+
+      //once you have the newTasks data from above, you want to setTasks
       setTasks(
         selectedProject === "NEXT_7"
-          ? newTasks.filter(
+          ? //if the selected project is NEXT_7, check for unarchived tasks within 7 days of today's date
+            newTasks.filter(
               (task) =>
                 moment(task.date, "DD-MM-YYYY").diff(moment(), "days") <= 7 &&
                 task.archived !== true
             )
-          : newTasks.filter((task) => task.archived !== true)
+          : //else get all unarchived tasks
+            newTasks.filter((task) => task.archived !== true)
       );
 
-      setArchivedTasks(newTasks.filter((task) => task.archived !== false));
+      //get all archived tasks (archived = true)
+      setArchivedTasks(newTasks.filter((task) => task.archived === true));
     });
 
     //only check projects when there is a new selected project

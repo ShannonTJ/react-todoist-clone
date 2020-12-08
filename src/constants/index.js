@@ -1,3 +1,5 @@
+//collated tasks = inbox, today, next_7
+//we don't want to add these as projects in firebase
 export const collatedTasks = [
   { key: "INBOX", name: "Inbox" },
   { key: "TODAY", name: "Today" },
