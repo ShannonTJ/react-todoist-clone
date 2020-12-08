@@ -2,7 +2,7 @@ import firebase from "firebase/app";
 import "firebase/firestore";
 
 const firebaseConfig = firebase.initializeApp({
-  //api key data
+  //api data
 });
 
 export { firebaseConfig as firebase };
