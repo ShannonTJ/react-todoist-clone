@@ -68,3 +68,30 @@ export const useTasks = (selectedProject) => {
 
   return { tasks, archivedTasks };
 };
+
+export const useProjects = () => {
+  const [projects, setProjects] = useState([]);
+
+  useEffect(() => {
+    firebase
+      .firestore()
+      .collection("projects")
+      .where("userId", "==", "1234")
+      .orderBy("projectId")
+      .get()
+      .then((snapshot) => {
+        const allProjects = snapshot.docs.map((project) => ({
+          ...project.data(),
+          docId: project.id,
+        }));
+
+        //avoid infinite loop with useEffect
+        //only run when there is a change in projects
+        if (JSON.stringify(allProjects) !== JSON.stringify(projects)) {
+          setProjects(allProjects);
+        }
+      });
+  }, [projects]);
+
+  return { projects, setProjects };
+};
