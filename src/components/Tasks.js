@@ -1,9 +1,19 @@
 import React from "react";
 import { Checkbox } from "./Checkbox";
 import { useTasks } from "../hooks";
+import { collatedTasks } from "../constants";
+import { getTitle, getCollatedTitle, collatedTasksExist } from "../helpers";
+
+import {
+  useSelectedProjectValue,
+  useProjectsValue,
+  SelectedProjectContext,
+} from "../context";
 
 export const Tasks = () => {
-  const { tasks } = useTasks("1");
+  const { SelectedProject } = useSelectedProjectValue();
+  const { projects } = useProjectsValue();
+  const { tasks } = useTasks(SelectedProject);
   let projectName = "";
 
   return (
