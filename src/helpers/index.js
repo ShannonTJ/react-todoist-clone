@@ -6,12 +6,9 @@ export const getTitle = (projects, projectId) =>
 export const getCollatedTitle = (projects, key) =>
   projects.find((project) => project.key === key);
 
-export const collatedTasksExist = (selectedProject) => {
-  //find tasks with the same key as the selected project
+export const collatedTasksExist = (selectedProject) =>
   collatedTasks.find((task) => task.key === selectedProject);
-};
 
-//generate a random id
 export const generatePushId = (() => {
   const PUSH_CHARS =
     "-0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz";

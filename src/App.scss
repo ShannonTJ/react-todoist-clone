@@ -40,9 +40,7 @@ $generic-bg: #db4c3f;
 @mixin box-overlay() {
   -webkit-box-shadow: $generic-box-shadow;
   box-shadow: $generic-box-shadow;
-  position: absolute;
   width: 100%;
-  z-index: 1;
   top: 85px;
   border-radius: 3px;
 }
@@ -420,33 +418,43 @@ header {
 /* Show Confirm Delete
   ============================================ */
 .project-delete-modal {
-  position: relative;
+  position: absolute;
 
   &__inner {
-    @include box-overlay();
+    // @include box-overlay();
+    -webkit-box-shadow: $generic-box-shadow;
+    box-shadow: $generic-box-shadow;
+    display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
     position: relative;
-    z-index: 99;
-    width: 200px;
-    padding: 10px;
-    top: 10px;
-    right: 0;
+    border-radius: 3px;
+    width: 100%;
+    margin: 5px 20px 5px 20px;
+    right: 145px;
     background-color: white;
 
     p {
-      margin-top: 5px;
-      margin-bottom: 5px;
+      padding: 5px 5px 0px 5px;
       line-height: normal;
       font-weight: normal;
       font-size: 15px;
+      text-align: center;
     }
 
     button {
       @include btn("50px");
+      text-align: center;
+      margin: 0px;
+      padding: 5px 10px 5px 10px;
     }
     span {
       @include cancel();
       font-weight: normal;
+      padding: 10px;
+      text-align: center;
     }
   }
 }

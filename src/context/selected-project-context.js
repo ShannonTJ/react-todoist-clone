@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 
 export const SelectedProjectContext = createContext();
 export const SelectedProjectProvider = ({ children }) => {
-  //inbox is the default selected project
   const [selectedProject, setSelectedProject] = useState("INBOX");
 
   return (
