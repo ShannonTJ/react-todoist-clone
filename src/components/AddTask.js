@@ -67,6 +67,7 @@ export const AddTask = ({
           onKeyDown={() => setShowMain(!showMain)}
           tabIndex={0}
           role="button"
+          aria-label="Add Task"
         >
           <span className="add-task__plus">+</span>
           <span className="add-task__text">Add Task</span>
@@ -94,6 +95,7 @@ export const AddTask = ({
                   }}
                   tabIndex={0}
                   role="button"
+                  aria-label="Cancel Adding Task"
                 >
                   X
                 </span>
@@ -111,6 +113,7 @@ export const AddTask = ({
             setShowTaskDate={setShowTaskDate}
           />
           <input
+            aria-label="Enter A Task"
             className="add-task__content"
             data-testid="add-task-content"
             type="text"
@@ -143,6 +146,7 @@ export const AddTask = ({
               }}
               tabIndex={0}
               role="button"
+              aria-label="Cancel Adding Task"
             >
               Cancel
             </span>

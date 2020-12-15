@@ -32,6 +32,7 @@ export const Sidebar = () => {
             }}
             tabIndex={0}
             role="button"
+            aria-label="Show Inbox Tasks"
           >
             <span>
               <FaInbox />
@@ -54,6 +55,7 @@ export const Sidebar = () => {
             }}
             tabIndex={0}
             role="button"
+            aria-label="Show Today's Tasks"
           >
             <span>
               <FaRegCalendar />
@@ -76,6 +78,7 @@ export const Sidebar = () => {
             }}
             tabIndex={0}
             role="button"
+            aria-label="Show Tasks For The Next 7 Days"
           >
             <span>
               <FaRegCalendarAlt />
@@ -90,6 +93,7 @@ export const Sidebar = () => {
         onKeyDown={() => setShowProjects(!showProjects)}
         role="button"
         tabIndex={0}
+        aria-label="Show/Hide Projects"
       >
         <span>
           <FaChevronDown

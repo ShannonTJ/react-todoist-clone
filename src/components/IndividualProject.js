@@ -33,7 +33,7 @@ export const IndividualProject = ({ project }) => {
         }}
         tabIndex={0}
         role="button"
-        aria-label="Confirm deletion of project"
+        aria-label="Confirm Project Deletion"
       >
         <FaTrashAlt />
         {showConfirm && (
@@ -53,7 +53,7 @@ export const IndividualProject = ({ project }) => {
                 }}
                 tabIndex={0}
                 role="button"
-                aria-label="Cancel adding project, do not delete"
+                aria-label="Cancel Adding Project, Do Not Delete"
               >
                 Cancel
               </span>

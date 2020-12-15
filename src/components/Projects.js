@@ -22,6 +22,7 @@ export const Projects = ({ activeValue = null }) => {
         }
       >
         <div
+          aria-label={`Select ${project.name} As The Task Project`}
           role="button"
           tabIndex={0}
           onKeyDown={() => {
