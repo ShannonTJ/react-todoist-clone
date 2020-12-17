@@ -91,9 +91,35 @@ describe("<AddTask />", () => {
       expect(setShowQuickAddTask).toHaveBeenCalled();
     });
 
-    it("renders <AddTask/>, adds a task to the inbox, and clears state", () => {
+    it("renders <AddTask/> and adds a task to TODAY", () => {
       useSelectedProjectValue.mockImplementation(() => ({
-        selectedProject: "INBOX",
+        selectedProject: "TODAY",
+      }));
+      //want to use the main input form, not the quick add
+      const showQuickAddTask = true;
+      const setShowQuickAddTask = jest.fn(() => !showQuickAddTask);
+      const { queryByTestId } = render(
+        <AddTask
+          showQuickAddTask={showQuickAddTask}
+          setShowQuickAddTask={setShowQuickAddTask}
+        />
+      );
+      fireEvent.click(queryByTestId("show-main-action"));
+      //expect the input to display
+      expect(queryByTestId("add-task-content")).toBeTruthy();
+      //change input value
+      fireEvent.change(queryByTestId("add-task-content"), {
+        target: { value: "New task!" },
+      });
+      //expect to get our input value
+      expect(queryByTestId("add-task-content").value).toBe("New task!");
+      //add the task and expect to return to the main screen
+      fireEvent.click(queryByTestId("add-task"));
+      expect(setShowQuickAddTask).toHaveBeenCalled();
+    });
+    it("renders <AddTask/> and adds a task to NEXT_7", () => {
+      useSelectedProjectValue.mockImplementation(() => ({
+        selectedProject: "NEXT_7",
       }));
       //want to use the main input form, not the quick add
       const showQuickAddTask = true;
