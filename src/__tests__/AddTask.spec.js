@@ -1,6 +1,7 @@
 import React from "react";
 import { render, cleanup, fireEvent } from "@testing-library/react";
 import { AddTask } from "../components/AddTask";
+import { useSelectedProjectValue } from "../context";
 
 beforeEach(cleanup);
 
@@ -87,6 +88,33 @@ describe("<AddTask />", () => {
       fireEvent.click(queryByTestId("show-main-action"));
       expect(queryByTestId("add-task-main")).toBeTruthy();
       fireEvent.click(queryByTestId("add-task-quick-cancel"));
+      expect(setShowQuickAddTask).toHaveBeenCalled();
+    });
+
+    it("renders <AddTask/>, adds a task to the inbox, and clears state", () => {
+      useSelectedProjectValue.mockImplementation(() => ({
+        selectedProject: "INBOX",
+      }));
+      //want to use the main input form, not the quick add
+      const showQuickAddTask = true;
+      const setShowQuickAddTask = jest.fn(() => !showQuickAddTask);
+      const { queryByTestId } = render(
+        <AddTask
+          showQuickAddTask={showQuickAddTask}
+          setShowQuickAddTask={setShowQuickAddTask}
+        />
+      );
+      fireEvent.click(queryByTestId("show-main-action"));
+      //expect the input to display
+      expect(queryByTestId("add-task-content")).toBeTruthy();
+      //change input value
+      fireEvent.change(queryByTestId("add-task-content"), {
+        target: { value: "New task!" },
+      });
+      //expect to get our input value
+      expect(queryByTestId("add-task-content").value).toBe("New task!");
+      //add the task and expect to return to the main screen
+      fireEvent.click(queryByTestId("add-task"));
       expect(setShowQuickAddTask).toHaveBeenCalled();
     });
   });
