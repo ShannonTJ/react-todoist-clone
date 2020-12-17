@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  render,
-  cleanup,
-  waitForElement,
-  getByTestId,
-} from "@testing-library/react";
+import { render, cleanup, fireEvent } from "@testing-library/react";
 import { AddTask } from "../components/AddTask";
 
 beforeEach(cleanup);
@@ -45,8 +40,13 @@ describe("<AddTask />", () => {
           setShowQuickAddTask={setShowQuickAddTask}
         />
       );
-
       expect(queryByTestId("quick-add-task")).toBeTruthy();
+    });
+
+    it("renders the <AddTask /> main showable when clicked", () => {
+      const { queryByTestId } = render(<AddTask showAddTaskMain />);
+      fireEvent.click(queryByTestId("show-main-action"));
+      expect(queryByTestId("add-task-main")).toBeTruthy();
     });
   });
 });
