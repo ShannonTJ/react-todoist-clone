@@ -48,5 +48,14 @@ describe("<AddTask />", () => {
       fireEvent.click(queryByTestId("show-main-action"));
       expect(queryByTestId("add-task-main")).toBeTruthy();
     });
+
+    it("renders the <AddTask /> project overlay when clicked", () => {
+      const { queryByTestId } = render(<AddTask showAddTaskMain />);
+
+      fireEvent.click(queryByTestId("show-main-action"));
+      expect(queryByTestId("add-task-main")).toBeTruthy();
+      fireEvent.click(queryByTestId("show-project-overlay"));
+      expect(queryByTestId("project-overlay")).toBeTruthy();
+    });
   });
 });
