@@ -5,15 +5,25 @@ import { Checkbox } from "../components/Checkbox";
 //clean the DOM
 beforeEach(cleanup);
 
-//firebase mock that passes the coverage test
-jest.mock("firebase", () => ({
-  firestore: jest.fn(() => ({
-    collection: jest.fn(() => ({
-      doc: jest.fn(() => ({
-        update: jest.fn(),
+//firebase mock that passes the coverage test with later versions of react-scripts
+// jest.mock("firebase", () => ({
+//   firestore: jest.fn(() => ({
+//     collection: jest.fn(() => ({
+//       doc: jest.fn(() => ({
+//         update: jest.fn(),
+//       })),
+//     })),
+//   })),
+// }));
+
+jest.mock("../firebase", () => ({
+  firebase: {
+    firestore: jest.fn(() => ({
+      collection: jest.fn(() => ({
+        add: jest.fn(() => Promise.resolve("Never mock firebase")),
       })),
     })),
-  })),
+  },
 }));
 
 describe("<Checkbox />", () => {

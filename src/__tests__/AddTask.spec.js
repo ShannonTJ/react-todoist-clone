@@ -10,13 +10,23 @@ jest.mock("../context", () => ({
   useProjectsValue: jest.fn(() => ({ projects: [] })),
 }));
 
-//firebase mock that passes the coverage test
-jest.mock("firebase", () => ({
-  firestore: jest.fn(() => ({
-    collection: jest.fn(() => ({
-      add: jest.fn(() => Promise.resolve("Never mock firebase, it is bad")),
+//firebase mock that passes the coverage test in later versions of react-scripts
+// jest.mock("firebase", () => ({
+//   firestore: jest.fn(() => ({
+//     collection: jest.fn(() => ({
+//       add: jest.fn(() => Promise.resolve("Never mock firebase, it is bad")),
+//     })),
+//   })),
+// }));
+
+jest.mock("../firebase", () => ({
+  firebase: {
+    firestore: jest.fn(() => ({
+      collection: jest.fn(() => ({
+        add: jest.fn(() => Promise.resolve("Never mock firebase")),
+      })),
     })),
-  })),
+  },
 }));
 
 describe("<AddTask />", () => {
@@ -142,6 +152,33 @@ describe("<AddTask />", () => {
       //add the task and expect to return to the main screen
       fireEvent.click(queryByTestId("add-task"));
       expect(setShowQuickAddTask).toHaveBeenCalled();
+    });
+    it("renders <AddTask /> and adds a task with a date", () => {
+      useSelectedProjectValue.mockImplementation(() => ({
+        selectedProject: "1",
+      }));
+      const { queryByTestId } = render(<AddTask showMain />);
+      fireEvent.click(queryByTestId("show-main-action"));
+      expect(queryByTestId("add-task-content")).toBeTruthy();
+      expect(queryByTestId("add-task-main")).toBeTruthy();
+
+      //enter a value for the task
+      fireEvent.change(queryByTestId("add-task-content"), {
+        target: { value: "New task with a date!" },
+      });
+      expect(queryByTestId("add-task-content").value).toBe(
+        "New task with a date!"
+      );
+
+      //show the date overlay
+      fireEvent.click(queryByTestId("show-task-date-overlay"));
+      expect(queryByTestId("task-date-overlay")).toBeTruthy();
+
+      //select a date from the dropdown
+      fireEvent.click(queryByTestId("task-date-tomorrow"));
+      expect(queryByTestId("task-date-overlay")).toBeFalsy();
+
+      fireEvent.click(queryByTestId("add-task"));
     });
   });
 });
