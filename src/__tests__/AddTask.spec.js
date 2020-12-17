@@ -75,5 +75,19 @@ describe("<AddTask />", () => {
       fireEvent.click(queryByTestId("add-task-main-cancel"));
       expect(queryByTestId("add-task-main")).toBeFalsy();
     });
+
+    it("renders <AddTask /> for quick add task and then clicks cancel", () => {
+      const showQuickAddTask = true;
+      const setShowQuickAddTask = jest.fn(() => !showQuickAddTask);
+
+      const { queryByTestId } = render(
+        <AddTask setShowQuickAddTask={setShowQuickAddTask} showQuickAddTask />
+      );
+
+      fireEvent.click(queryByTestId("show-main-action"));
+      expect(queryByTestId("add-task-main")).toBeTruthy();
+      fireEvent.click(queryByTestId("add-task-quick-cancel"));
+      expect(setShowQuickAddTask).toHaveBeenCalled();
+    });
   });
 });
