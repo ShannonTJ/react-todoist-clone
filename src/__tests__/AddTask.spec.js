@@ -57,5 +57,14 @@ describe("<AddTask />", () => {
       fireEvent.click(queryByTestId("show-project-overlay"));
       expect(queryByTestId("project-overlay")).toBeTruthy();
     });
+
+    it("renders the <AddTask /> task date overlay when clicked", () => {
+      const { queryByTestId } = render(<AddTask showAddTaskMain />);
+
+      fireEvent.click(queryByTestId("show-main-action"));
+      expect(queryByTestId("add-task-main")).toBeTruthy();
+      fireEvent.click(queryByTestId("show-task-date-overlay"));
+      expect(queryByTestId("task-date-overlay")).toBeTruthy();
+    });
   });
 });
