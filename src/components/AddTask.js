@@ -19,7 +19,7 @@ export const AddTask = ({
   const [showProjectOverlay, setShowProjectOverlay] = useState(false);
   const [showTaskDate, setShowTaskDate] = useState(false);
 
-  const { selectedProject } = useSelectedProjectValue() || {};
+  const { selectedProject } = useSelectedProjectValue();
 
   const addTask = () => {
     const projectId = project || selectedProject;

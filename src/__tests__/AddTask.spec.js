@@ -1,8 +1,11 @@
 import React from "react";
-import { render, cleanup } from "@testing-library/react";
+import {
+  render,
+  cleanup,
+  waitForElement,
+  getByTestId,
+} from "@testing-library/react";
 import { AddTask } from "../components/AddTask";
-import { firebase } from "../firebase";
-import { useSelectedProjectValue } from "../context";
 
 beforeEach(cleanup);
 
@@ -29,6 +32,21 @@ describe("<AddTask />", () => {
     it("renders the <AddTask />", () => {
       const { queryByTestId } = render(<AddTask />);
       expect(queryByTestId("add-task-comp")).toBeTruthy();
+    });
+
+    it("renders the <AddTask /> quick overlay", () => {
+      const setShowQuickAddTask = jest.fn();
+
+      const { queryByTestId } = render(
+        <AddTask
+          showAddTaskMain
+          shouldShowMain={false}
+          showQuickAddTask
+          setShowQuickAddTask={setShowQuickAddTask}
+        />
+      );
+
+      expect(queryByTestId("quick-add-task")).toBeTruthy();
     });
   });
 });
