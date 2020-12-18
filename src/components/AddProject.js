@@ -8,7 +8,7 @@ export const AddProject = ({ shouldShow = false }) => {
   const [projectName, setProjectName] = useState("");
 
   const projectId = generatePushId();
-  const { setProjects } = useProjectsValue();
+  const { projects, setProjects } = useProjectsValue();
 
   const addProject = () =>
     projectName &&
@@ -17,7 +17,7 @@ export const AddProject = ({ shouldShow = false }) => {
       .collection("projects")
       .add({ projectId, name: projectName, userId: "1234" })
       .then(() => {
-        setProjects([]);
+        setProjects([...projects]);
         setProjectName("");
         setShow(false);
       });
@@ -25,7 +25,7 @@ export const AddProject = ({ shouldShow = false }) => {
   return (
     <div className="add-project" data-testid="add-project">
       {show && (
-        <div className="add-project__input">
+        <div className="add-project__input" data-testid="add-project-inner">
           <input
             value={projectName}
             onChange={(e) => setProjectName(e.target.value)}
