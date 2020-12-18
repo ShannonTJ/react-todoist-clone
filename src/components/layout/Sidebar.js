@@ -22,6 +22,7 @@ export const Sidebar = () => {
           className={active === "inbox" ? "active" : undefined}
         >
           <div
+            data-testid="inbox-action"
             onClick={() => {
               setActive("inbox");
               setSelectedProject("INBOX");
@@ -45,6 +46,7 @@ export const Sidebar = () => {
           className={active === "today" ? "active" : undefined}
         >
           <div
+            data-testid="today-action"
             onClick={() => {
               setActive("today");
               setSelectedProject("TODAY");
@@ -68,6 +70,7 @@ export const Sidebar = () => {
           className={active === "next_7" ? "active" : undefined}
         >
           <div
+            data-testid="next_7-action"
             onClick={() => {
               setActive("next_7");
               setSelectedProject("NEXT_7");
