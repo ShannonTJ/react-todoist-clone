@@ -563,7 +563,7 @@ header {
       background-color: white;
       position: absolute;
       left: 50%;
-      top: 50%;
+      top: 40%;
       padding: 20px 30px;
       -webkit-transform: translate(-50%, -50%);
       transform: translate(-50%, -50%);
@@ -652,8 +652,9 @@ header {
   @include box-overlay();
   background-color: #fff;
   width: 200px;
-  right: 35px;
+  right: 0px;
   position: absolute;
+  z-index: 1;
 
   &__list li {
     @include task-item();
@@ -686,8 +687,9 @@ header {
   @include box-overlay();
   background-color: white;
   position: absolute;
+  z-index: 1;
 
-  @include mq("900px") {
+  @include mq("2000px") {
     width: 200px;
     right: 0;
   }
