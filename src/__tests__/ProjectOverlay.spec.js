@@ -2,7 +2,6 @@ import React from "react";
 import { render, cleanup, fireEvent } from "@testing-library/react";
 import { ProjectOverlay } from "../components/ProjectOverlay";
 import { useProjectsValue } from "../context";
-import { useProjects } from "../hooks";
 
 beforeEach(cleanup);
 
