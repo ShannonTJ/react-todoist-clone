@@ -419,42 +419,38 @@ header {
   ============================================ */
 .project-delete-modal {
   position: absolute;
+  right: 10px;
+  width: 200px;
+  display: flex;
 
   &__inner {
-    // @include box-overlay();
-    -webkit-box-shadow: $generic-box-shadow;
-    box-shadow: $generic-box-shadow;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-
+    @include box-overlay();
     position: relative;
-    border-radius: 3px;
-    width: 100%;
-    margin: 5px 20px 5px 20px;
-    right: 145px;
+    z-index: 99;
+    padding: 10px;
+    top: 20px;
+    right: 0;
     background-color: white;
+    flex-wrap: wrap;
+    justify-content: space-around;
 
     p {
-      padding: 5px 5px 0px 5px;
+      margin-top: 10px;
+      margin-bottom: 5px;
       line-height: normal;
       font-weight: normal;
       font-size: 15px;
       text-align: center;
+      flex-basis: 100%;
     }
 
     button {
       @include btn("50px");
-      text-align: center;
-      margin: 0px;
-      padding: 5px 10px 5px 10px;
+      margin-bottom: 12px;
     }
     span {
       @include cancel();
       font-weight: normal;
-      padding: 10px;
-      text-align: center;
     }
   }
 }
@@ -656,7 +652,8 @@ header {
   @include box-overlay();
   background-color: #fff;
   width: 200px;
-  right: 0;
+  right: 35px;
+  position: absolute;
 
   &__list li {
     @include task-item();
@@ -688,6 +685,7 @@ header {
 .project-overlay {
   @include box-overlay();
   background-color: white;
+  position: absolute;
 
   @include mq("900px") {
     width: 200px;
